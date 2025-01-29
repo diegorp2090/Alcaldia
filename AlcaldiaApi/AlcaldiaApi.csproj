@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <Folder Include="Business\" />
-    <Folder Include="Domain\" />
   </ItemGroup>
 
 </Project>
