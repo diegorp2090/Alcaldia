@@ -1,0 +1,6 @@
+@AlcaldiaApi_HostAddress = http://localhost:5136
+
+GET {{AlcaldiaApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
