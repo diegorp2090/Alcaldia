@@ -51,9 +51,11 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Admin", policy => policy.RequireClaim("role", "admin"));
 });
 
-
 builder.Services.AddTransient<ILoginServices, LoginServices>();
 builder.Services.AddTransient<IUsuarioServices, UsuarioServices>();
+
+/*Inyeccion de Indenpendencia con 'Key' */
+builder.Services.AddKeyedTransient<IUsuarioServices, UsuariosServicesV2>("usuariosServicesV2");
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

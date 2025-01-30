@@ -12,10 +12,14 @@
     public class UsuariosController : Controller
     {
         private readonly IUsuarioServices _usuarioServices;
+        /*FromKeyedServices: Solo aplica para .Net 8*/
+        private readonly IUsuarioServices _usuarioServicesV2;        
 
-        public UsuariosController(IUsuarioServices usuarioServices)
+        public UsuariosController(IUsuarioServices usuarioServices,
+            [FromKeyedServices("usuariosServicesV2")] IUsuarioServices usuarioServicesV2)
         {
             this._usuarioServices = usuarioServices;
+            _usuarioServicesV2 = usuarioServicesV2;
         }
 
         [HttpPost("crear")]
