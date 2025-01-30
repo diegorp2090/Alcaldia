@@ -1,11 +1,11 @@
-﻿using AlcaldiaApi.Domain.Entities.DTO;
-
-namespace AlcaldiaApi.Business.Interfaces
+﻿namespace AlcaldiaApi.Business.Interfaces
 {
-    public interface IUsuariosProvider
+    using AlcaldiaApi.Domain.Entities.DTO;
+    public interface IUsuarioServices
     {
         Task<(bool, dynamic)> CreateUserAsync(UsuarioDTO model);
         Task<(bool, dynamic)> EsAdministrador(string UsuarioId);
+        Task<dynamic> ObtenerTodosUsuarios();
         Task<(bool, dynamic)> RemoverAdminitrador(string UsuarioId);
         //Task<List<User>> GetAsync(string filter);
 

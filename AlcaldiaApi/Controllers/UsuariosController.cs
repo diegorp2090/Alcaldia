@@ -1,22 +1,21 @@
 ﻿namespace AlcaldiaApi.Controllers
 {
-    using AlcaldiaApi.Business.Interfaces;
+    using AlcaldiaApi.Business.Interfaces;    
     using AlcaldiaApi.Domain.Entities.DTO;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-
-    [Route("api/usuario")]
+    [Route("api/usuarios")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class UserController : Controller
+    public class UsuariosController : Controller
     {
-        private readonly IUsuariosProvider usuariosProvider;
+        private readonly IUsuarioServices _usuarioServices;
 
-        public UserController(IUsuariosProvider _usuariosProvider)
+        public UsuariosController(IUsuarioServices usuarioServices)
         {
-            usuariosProvider = _usuariosProvider;
+            this._usuarioServices = usuarioServices;
         }
 
         [HttpPost("crear")]
@@ -24,7 +23,7 @@
         {
             try
             {
-                var (EsValido, result) = await usuariosProvider.CreateUserAsync(usuarioDTO);
+                var (EsValido, result) = await _usuarioServices.CreateUserAsync(usuarioDTO);
 
                 if (EsValido)
                     return Ok(result);
@@ -38,12 +37,12 @@
         }
 
         [HttpPost("HacerAdmin")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Admin")]
-        public async Task<ActionResult> HacerAdmin([FromBody]string UsuarioId)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Admin")]        
+        public async Task<ActionResult> HacerAdmin([FromBody] string UsuarioId)
         {
             try
             {
-                var (EsValido, result) = await usuariosProvider.EsAdministrador(UsuarioId);
+                var (EsValido, result) = await _usuarioServices.EsAdministrador(UsuarioId);
 
                 if (EsValido)
                     return Ok(result);
@@ -53,7 +52,7 @@
             catch (Exception exception)
             {
                 return BadRequest(exception);
-            }            
+            }
         }
 
         [HttpPost("RemoverAdmin")]
@@ -62,7 +61,7 @@
         {
             try
             {
-                var (EsValido, result) = await usuariosProvider.RemoverAdminitrador(UsuarioId);
+                var (EsValido, result) = await _usuarioServices.RemoverAdminitrador(UsuarioId);
 
                 if (EsValido)
                     return Ok(result);
@@ -75,6 +74,20 @@
             }
         }
 
+        [HttpGet("ObtenerTodosUsuarios")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> ObtenerTodosUsuarios()
+        {
+            try
+            {
+                var result = await _usuarioServices.ObtenerTodosUsuarios();
 
+                return Ok(result);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception);
+            }
+        }
     }
 }

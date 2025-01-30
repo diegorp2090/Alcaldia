@@ -1,5 +1,6 @@
 using AlcaldiaApi.Business.Interfaces;
-using AlcaldiaApi.Business.Providers;
+using AlcaldiaApi.Business.Services.Login;
+using AlcaldiaApi.Business.Services.Usuario;
 using AlcaldiaApi.Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -51,8 +52,8 @@ builder.Services.AddAuthorization(options =>
 });
 
 
-builder.Services.AddTransient<ILogin, LoginProvider>();
-builder.Services.AddTransient<IUsuariosProvider, UsuariosProvider>();
+builder.Services.AddTransient<ILoginServices, LoginServices>();
+builder.Services.AddTransient<IUsuarioServices, UsuarioServices>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

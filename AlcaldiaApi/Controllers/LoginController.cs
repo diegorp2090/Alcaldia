@@ -9,11 +9,11 @@ namespace AlcaldiaApi.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly ILogin login;
+        private readonly ILoginServices _loginServices;
 
-        public LoginController(ILogin _login)
+        public LoginController(ILoginServices loginServices)
         {
-            this.login = _login;
+            this._loginServices = loginServices;
         }
 
         [HttpPost("login")]
@@ -21,7 +21,7 @@ namespace AlcaldiaApi.Controllers
         {
             try
             {
-                var (EsValido, result) = await login.LoginAsync(loginDTO);
+                var (EsValido, result) = await _loginServices.LoginAsync(loginDTO);
 
                 if (EsValido)
                     return Ok(result);
