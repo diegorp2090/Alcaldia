@@ -33,25 +33,6 @@ namespace AlcaldiaApi.Controllers
             {
                 return BadRequest(exception);
             }           
-        }
-
-
-        [HttpPost("crear")]
-        public async Task<ActionResult> Crear([FromBody] LoginDTO loginDTO)
-        {
-            try
-            {
-                var (EsValido, result) = await login.CreateUserAsync(loginDTO);
-
-                if (EsValido)
-                    return Ok(result);
-                else
-                    return BadRequest(result);                
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(exception);
-            }
-        }
+        }        
     }
 }

@@ -38,31 +38,7 @@
             }                
             else
                 return (valido, new RespuestasGenerica { EsValido = false, MensajeExcepcion = "Login error" });            
-        }
-        
-        public async Task<(bool, dynamic)> CreateUserAsync(LoginDTO model)
-        {
-            bool EsValido = false;
-            try
-            {
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email };                
-                var result = await userManager.CreateAsync(user, model.Password);
-
-                if(result.Succeeded)
-                {
-                    EsValido = true;
-                    return (EsValido, await ConstruirToken(model));
-                }
-                else
-                {
-                    return (EsValido, result.Errors);
-                }
-            }
-            catch (Exception exception)
-            {
-                return (EsValido, $"{exception.Message}");
-            }            
-        }        
+        }                    
         
         private async Task<RespuestaAutenticacion> ConstruirToken(LoginDTO model)
         {
