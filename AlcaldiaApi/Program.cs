@@ -1,5 +1,6 @@
 using AlcaldiaApi.Business.Interfaces;
 using AlcaldiaApi.Business.Services.Login;
+using AlcaldiaApi.Business.Services.Pruebas;
 using AlcaldiaApi.Business.Services.Usuario;
 using AlcaldiaApi.Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -56,6 +57,11 @@ builder.Services.AddTransient<IUsuarioServices, UsuarioServices>();
 
 /*Inyeccion de Indenpendencia con 'Key' */
 builder.Services.AddKeyedTransient<IUsuarioServices, UsuariosServicesV2>("usuariosServicesV2");
+
+/*EJEMPLO DE TIPOS DE INYECCION DE INDEPENDIENCIAS*/
+builder.Services.AddKeyedSingleton<IPruebasServices, PruebasServices>("pruebasSingleton"); //SIEMPRE ES EL MISMO OBJETO PARA OBJETO PARA CADA CLIENTE             
+builder.Services.AddKeyedScoped<IPruebasServices, PruebasServices>("pruebasScoped"); //EL OBJETO SERA DISTINTO EN CADA SOLICITUD POR CLIENTE, EJEMPLO: CLIENTE1 (A1,A1,A1) - CLIENTE2 (A2,A2,A2,)
+builder.Services.AddKeyedTransient<IPruebasServices, PruebasServices>("pruebasTransient"); //EL OBJETO ES DIFERENTE POR CADA SOLICITUD 
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
