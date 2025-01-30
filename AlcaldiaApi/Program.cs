@@ -1,6 +1,57 @@
+using AlcaldiaApi.Business.Interfaces;
+using AlcaldiaApi.Business.Providers;
+using AlcaldiaApi.Domain;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+/*CONEXION BD*/
+builder.Services.AddDbContext<ApplicationDBContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
+
+builder.Services.AddCors(options =>
+    {
+        //var frontendURL = builder.Configuration.GetValue<string>("frontEndURL");
+        //options.AddDefaultPolicy(b =>
+        //{
+        //    b.WithOrigins(frontendURL).AllowAnyMethod();
+        //});
+
+        options.AddPolicy("AllowAnything", options =>
+        {
+            options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+        });
+    });
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDBContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jtw"])),
+        ClockSkew = TimeSpan.Zero
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireClaim("role", "admin"));
+});
+
+
+builder.Services.AddTransient<ILogin, LoginProvider>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
