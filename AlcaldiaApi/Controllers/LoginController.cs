@@ -1,5 +1,5 @@
 ﻿using AlcaldiaApi.Business.Interfaces;
-using AlcaldiaApi.Domain.Entities.DTO;
+using AlcaldiaApi.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

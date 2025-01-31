@@ -1,4 +1,4 @@
-﻿namespace AlcaldiaApi.Domain.Entities.DTO
+﻿namespace AlcaldiaApi.DTOs
 {
     public class TokenDTO
     {

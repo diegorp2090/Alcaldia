@@ -1,6 +1,7 @@
 ﻿namespace AlcaldiaApi.Business.Interfaces
 {
-    using AlcaldiaApi.Domain.Entities.DTO;
+    using AlcaldiaApi.DTOs;
+
     public interface ILoginServices
     {
         Task<(bool, dynamic)> LoginAsync(LoginDTO model);

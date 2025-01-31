@@ -1,7 +1,7 @@
 ﻿namespace AlcaldiaApi.Controllers
 {
-    using AlcaldiaApi.Business.Interfaces;    
-    using AlcaldiaApi.Domain.Entities.DTO;
+    using AlcaldiaApi.Business.Interfaces;
+    using AlcaldiaApi.DTOs;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;

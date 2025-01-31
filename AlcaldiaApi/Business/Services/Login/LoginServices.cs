@@ -1,8 +1,8 @@
 ﻿namespace AlcaldiaApi.Business.Services.Login
 {
     using AlcaldiaApi.Business.Interfaces;
-    using AlcaldiaApi.Domain.Entities.DTO;
     using AlcaldiaApi.Domain.Models;
+    using AlcaldiaApi.DTOs;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.IdentityModel.Tokens;
     using System.IdentityModel.Tokens.Jwt;

@@ -1,6 +1,7 @@
 ﻿namespace AlcaldiaApi.Business.Interfaces
 {
-    using AlcaldiaApi.Domain.Entities.DTO;
+    using AlcaldiaApi.DTOs;
+
     public interface IUsuarioServices
     {
         Task<(bool, dynamic)> CreateUserAsync(UsuarioDTO model);
